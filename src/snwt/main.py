@@ -43,7 +43,7 @@ def main():
 
     # date
     df["Month"] = pd.to_datetime(df["Date"]).apply(lambda date: date.month)
-    df["Day"] = pd.to_datetime(df["Date"]).apply(lambda date: date.month)
+    df["Day"] = pd.to_datetime(df["Date"]).apply(lambda date: date.day)
 
     # cleanup df
     df.drop(columns=["Date", "Wallet", "Author", "Currency"], inplace=True)

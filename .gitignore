@@ -5,3 +5,4 @@ build
 dist
 *.spec
 snwt.egg-info
+.mypy_cache
