@@ -1,0 +1,7 @@
+output*.csv
+transactions*.csv
+__pycache__
+build
+dist
+*.spec
+snwt.egg-info
