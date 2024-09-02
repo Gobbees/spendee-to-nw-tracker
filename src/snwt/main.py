@@ -9,6 +9,18 @@ DEFAULT_OUTPUT_EXPENSES_FILE_NAME = f"output-expenses-{DEFAULT_FILE_NAME_DATE_TI
 
 OUTPUT_COLUMN_ORDER = ["Month", "Day", "Note", "Amount", "Category name", "Labels"]
 
+INPUT_HEADER_COLUMNS = [
+    "Date",
+    "Wallet",
+    "Type",
+    "Category name",
+    "Amount",
+    "Currency",
+    "Note",
+    "Labels",
+    "Author",
+]
+
 
 def main():
     parser = argparse.ArgumentParser(
@@ -28,7 +40,7 @@ def main():
         default=DEFAULT_OUTPUT_EXPENSES_FILE_NAME,
     )
     args = parser.parse_args()
-    print(args.input_file_path, args.output_income)
+    print(f"Input file: {args.input_file_path}, Output file: {args.output_income}")
 
     if not os.path.isfile(args.input_file_path):
         raise Exception(
@@ -40,6 +52,12 @@ def main():
         )
 
     df = pd.read_csv(args.input_file_path)
+
+    # validate header
+    if list(df.columns) != INPUT_HEADER_COLUMNS:
+        raise Exception(
+            f"The input file doesn't conform to the required format as it might be missing some columns. Parsed columns: {list(df.columns)}"
+        )
 
     # date
     df["Month"] = pd.to_datetime(df["Date"]).apply(lambda date: date.month)
